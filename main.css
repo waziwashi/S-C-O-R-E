@@ -1,0 +1,124 @@
+body {
+    --c: white; /*couleur*/
+    --b: grey; /*fond*/
+    --h: rgb(95, 95, 95); /*survol*/
+    margin: 0;
+    padding: 0;
+    overflow-x: hidden;
+    overflow-y: auto;
+}
+ul {
+    margin: 0;
+    padding: 0;
+}
+#joueurs {
+    display: flex;
+    flex-wrap: wrap;
+    width: 100%;
+    height: 100%;
+    margin: 0;
+    padding: 0;
+}
+#joueurs:empty::before {
+    content: "🕹️ pour ajouter un joueur";
+    color: var(--c);
+    font-size: 4vh;
+    font-family: "Geo", serif;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    width: 100vw;
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+.joueur {
+    margin: 0;
+    display: inline-block;
+    vertical-align: middle;
+    height: 50vh; /* Deux lignes maximum si > 4 joueurs */
+    display: inline-block;
+    box-sizing: border-box;
+    padding: 0;
+    margin: 0 auto;
+}
+.joueur:hover {
+    background-color: var(--h);
+    box-shadow: -10px 10px 10px black;
+    --b: var(--h);
+}
+.slider {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.slider-container {
+    display: flex;
+    justify-content: center;
+    gap: 1vw;
+    margin: 1vh 3vw 0 0;
+}
+input[type="range"] {
+    writing-mode: vertical-lr;
+    direction: rtl;
+    margin: 0;
+    height: 35vh;
+    width: 2vw;
+    cursor: pointer;
+    overflow: hidden;
+    -webkit-appearance: none;
+}
+input::-webkit-slider-runnable-track {
+    -webkit-appearance: none;
+    position: relative;
+    width: 100%;
+    box-shadow: inset 0 0 0 0.8vw var(--b);
+    background-color: var(--c);
+    overflow: hidden;
+} 
+input::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    position: relative;
+    bottom: initial;
+    box-shadow: inset 0 0 0 0.3vw var(--c), inset 0 0 0 2vw var(--b);
+    width: 100%;
+    aspect-ratio: 1;
+    border-radius: 50%;
+}
+p {
+    vertical-align: middle;
+    text-align: center;
+    margin: 0;
+    color: var(--c);
+    font-family: 'WDXL Lubrifont TC';
+    font-size: 3vh;
+}
+input.nom {
+    font-size: 4vh;
+    text-align: center;
+    font-family: 'WDXL Lubrifont TC';
+    color: var(--c);
+    background-color: transparent;
+    border: none;
+    outline: none;
+    width: 100%;
+}
+button.ajouterJoueur {
+    display: run-in;
+    cursor: pointer;
+    text-decoration: none;
+    color: var(--c);
+    background-color: var(--b);
+    border-radius: 20%;
+}
+button.suppr {
+    font-size: 1em;
+    margin: 30vh 0 0 0;
+    cursor: pointer;
+    text-decoration: none;
+    color: var(--c);
+    background-color: var(--b);
+    border-radius: 20%;
+    height: 2.2em;
+}

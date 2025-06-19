@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <title>JeuDesLogos</title>
+    <link href="main.css" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Geo:ital@0;1&family=WDXL+Lubrifont+TC&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Geo:ital@0;1&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div id="joueurs"></div>
+    <button class="ajouterJoueur" onclick="ajouterJoueur()" style="font-size:3vh;position:fixed;bottom:2vh;right:2vh;z-index:1000;">🕹️</button>
+    <script>
+        let compteurJoueur = 0;
+        function ajouterJoueur() {
+            compteurJoueur++;
+            const container = document.getElementById("joueurs");
+            const joueurDiv = document.createElement("div");
+            joueurDiv.className = "joueur";
+            const nom = "Joueur" + compteurJoueur;
+            const slidersHTML = ["S", "C", "O", "R", "E"].map(letter => `
+                <li class="slider">
+                    <input type="range" min="0" max="4" value="0" id="slider${letter}${compteurJoueur}" onchange="calculerScore(${compteurJoueur})">
+                    <p>${letter}</p>
+                </li>
+            `).join("");
+
+            joueurDiv.innerHTML = `
+                <input type="text" spellcheck="false" class="nom" value="${nom}" onchange="renommerJoueur(this)">
+                <div class="slider-container">
+                    <button class="suppr" onclick="supprimerJoueur(this)">🗑️</button>
+                    ${slidersHTML}
+                </div>
+                <p id="total${compteurJoueur}">0</p>
+            `;
+
+            container.appendChild(joueurDiv);
+            ajusterLargeurs();
+        }
+
+        function calculerScore(num) {
+            const lettres = ["S", "C", "O", "R", "E"];
+            const total = lettres.reduce((acc, l) => acc + +document.getElementById(`slider${l}${num}`).value, 0);
+            document.getElementById(`total${num}`).innerText = total;
+        }
+
+        function supprimerJoueur(button) {
+            const div = button.closest(".joueur");
+            if ("Supprimer ce joueur ?") {
+                div.remove();
+                ajusterLargeurs();
+            }
+        }
+
+        function ajusterLargeurs() {
+            const joueurs = document.querySelectorAll(".joueur");
+            const nb = joueurs.length;
+            const parLigne = nb > 4 ? Math.ceil(nb / 2) : nb;
+            const largeur = 100 / parLigne;
+
+            joueurs.forEach(joueur => {
+                joueur.style.width = `${largeur}vw`;
+                joueur.style.height = nb > 4 ? "50vh" : "100vh";
+            });
+        }
+    </script>
+</body>
+</html>
